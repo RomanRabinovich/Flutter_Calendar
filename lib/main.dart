@@ -64,51 +64,67 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 8, 1, 22),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 86,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 36),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "OCTOBER",
-                    style: TextStyle(color: Colors.white, fontSize: 22),
-                  ),
-                  Text(
-                    "2022",
-                    style: TextStyle(color: Colors.grey, fontSize: 10),
-                  )
-                ],
-              ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Container(
+            child: IndexedStack(
+              index: 1,
+              children: [
+                Placeholder(),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      height: 86,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 36),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "OCTOBER",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 22),
+                            ),
+                            Text(
+                              "2022",
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 10),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                        height: 382,
+                        child: GridView.builder(
+                            itemCount: buttons.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 7),
+                            itemBuilder: (BuildContext context, int index) {
+                              return MyButton(
+                                buttonText: buttons[index],
+                                color: isOperator(buttons[index])
+                                    ? Color.fromARGB(255, 8, 1, 22)
+                                    : Color.fromARGB(255, 12, 22, 217),
+                                textColor: isOperator(buttons[index])
+                                    ? Colors.grey
+                                    : Colors.white,
+                              );
+                            })),
+                    Expanded(
+                      child: Container(
+                        color: Color.fromARGB(255, 8, 1, 22),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          Container(
-              height: 382,
-              child: GridView.builder(
-                  itemCount: buttons.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 7),
-                  itemBuilder: (BuildContext context, int index) {
-                    return MyButton(
-                      buttonText: buttons[index],
-                      color: isOperator(buttons[index])
-                          ? Color.fromARGB(255, 8, 1, 22)
-                          : Color.fromARGB(255, 12, 22, 217),
-                      textColor: isOperator(buttons[index])
-                          ? Colors.grey
-                          : Colors.white,
-                    );
-                  })),
-          Expanded(
-            child: Container(
-              color: Color.fromARGB(255, 8, 1, 22),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
